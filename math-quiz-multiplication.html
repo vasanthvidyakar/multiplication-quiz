@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Party Prep Multiplication Quiz&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body { font-family: 'Comic Sans MS', 'Arial', sans-serif; background: #ffe7d1; margin: 0; padding: 0; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.container { background: #fff5e1; border-radius: 16px; margin: 25px auto; max-width: 600px; padding: 28px 24px; box-shadow: 0 7px 32px #ffd27a7a; position: relative; min-height: 520px;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>h2 { color: #ff6713; text-shadow: 2px 2px #ffe7d1; margin-top:6px; text-align: center;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.story-row { font-size: 1.22rem; margin: 20px 0 13px 0; color: #178a66; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.quizimg { font-size: 46px; text-align: center; margin-top: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.step-row { font-size: 1.35rem; margin: 14px 0; color:#0763b7; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input.quizbox { width: 48px; font-size: 1.22rem; text-align: center; border-radius:7px; border:2px solid #ffc923; background:#fffacad0; margin:0 2px;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.num-pad { margin: 25px 0 15px 0; text-align: center;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.num-pad button { font-size: 16px; margin: 5px 6px; width: 38px; height: 38px; border-radius: 10px; background: #ffecb0; border: 2px solid #ffe286; color:#ff6700; font-weight:bold; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.num-pad button:hover { background: #ffee72; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.action-btn { background: #ffa200; color: white; font-size: 22px; padding: 10px 33px; border-radius: 12px; cursor: pointer; border:none; margin: 16px 10px 5px 10px; display: block; margin-left:auto; margin-right:auto; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.action-btn.secondary { background: #197e60; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.action-btn:hover { background: #ff7702; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.action-btn.secondary:hover { background: #11cc8b; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.feedback { margin: 25px 0 18px; font-size: 1.23rem; text-align: center;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.solution-table { font-size:1.08rem; margin: 23px auto; background:#fff4c2; border-radius:9px; padding:9px; width: 85%;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.solution-table td { padding: 2px 11px;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>#progressHolder { position: fixed; top: 8px; right: 8px; background: #ffe0a3; font-weight: bold; font-size: 16px; padding: 8px 12px; border-radius: 10px; color: #d05e00; box-shadow: 2px 2px 5px #daa520cc; z-index:1000;}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.stars { font-size: 36px; margin-top: 10px; color: #ffb400; user-select:none; }</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1">&lt;div id="progressHolder"&gt;Question 1 of 5&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;div class="container" id="quiz-container"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="container" id="retry-container" style="display:none; text-align:center;"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="container" id="solution-container" style="display:none; text-align:center;"&gt;&lt;/div&gt;</p>
+<p class="p1">&lt;div class="container" id="result-container" style="display:none; text-align:center;"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;script&gt;</p>
+<p class="p1">// Story-based 5 questions for party prep theme</p>
+<p class="p1">const questions = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>story: "Ria is preparing party decorations. She has &lt;b&gt;6 packs of balloons&lt;/b&gt;, each with &lt;b&gt;13 balloons&lt;/b&gt;. How many balloons in total?",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>img: "🎈",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multA: 6,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multB: 13,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>split: [10, 3]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>story: "Next, Ria packs &lt;b&gt;5 boxes of cupcakes&lt;/b&gt;. Each box contains &lt;b&gt;14 cupcakes&lt;/b&gt;. How many cupcakes altogether?",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>img: "🧁",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multA: 5,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multB: 14,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>split: [10, 4]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>story: "Ria sets up &lt;b&gt;4 baskets&lt;/b&gt; with &lt;b&gt;18 strawberries&lt;/b&gt; each. How many strawberries are there in total?",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>img: "🍓",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multA: 4,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multB: 18,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>split: [10, 8]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>story: "At the party area, there are &lt;b&gt;7 ice cream stands&lt;/b&gt;, each selling &lt;b&gt;15 cones&lt;/b&gt; daily. How many cones are sold altogether?",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>img: "🍦",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multA: 7,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multB: 15,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>split: [10, 5]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>},</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{</p>
+<p class="p1"><span class="Apple-converted-space">    </span>story: "Finally, Ria has &lt;b&gt;8 tables&lt;/b&gt;. Each table has &lt;b&gt;12 chairs&lt;/b&gt;. How many chairs in total?",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>img: "🪑",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multA: 8,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>multB: 12,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>split: [10, 2]</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">let index = 0, inputs = Array(9).fill('');</p>
+<p class="p1">let focusId = null;</p>
+<p class="p1">let firstTryCorrect = Array(questions.length).fill(false);</p>
+<p class="p1">let solutionViewedTracker = Array(questions.length).fill(false);</p>
+<p class="p2"><br></p>
+<p class="p1">function updateProgress() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const total = questions.length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const done = index;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('progressHolder').innerText = `Question ${done + 1} of ${total}`;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function renderQuestion() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const q = questions[index];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>inputs = Array(9).fill('');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>focusId = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('solution-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('result-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').style.display='block';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>updateProgress();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const markup = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="quizimg"&gt;${q.img}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Party Prep Multiplication&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="story-row"&gt;${q.story}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="step-row"&gt;${q.multA} × ${q.multB} = ${q.multA} × ( &lt;input class="quizbox" id="in0" maxlength="3"&gt; + &lt;input class="quizbox" id="in1" maxlength="3"&gt; )&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="step-row"&gt;= &lt;input class="quizbox" id="in2" maxlength="3"&gt; × &lt;input class="quizbox" id="in3" maxlength="3"&gt; + &lt;input class="quizbox" id="in4" maxlength="3"&gt; × &lt;input class="quizbox" id="in5" maxlength="3"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="step-row"&gt;= &lt;input class="quizbox" id="in6" maxlength="4"&gt; + &lt;input class="quizbox" id="in7" maxlength="4"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="step-row"&gt;= &lt;input class="quizbox" id="in8" maxlength="5"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="num-pad"&gt;${[1,2,3,4,5,6,7,8,9,0].map(n=&gt;`&lt;button onclick="insertNum('${n}')"&gt;${n}&lt;/button&gt;`).join('')}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button onclick="deleteNum()"&gt;&amp;#9003;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="action-btn" onclick="submitAns()"&gt;SUBMIT&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').innerHTML = markup;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let allBoxes = document.querySelectorAll('.quizbox');</p>
+<p class="p1"><span class="Apple-converted-space">  </span>allBoxes.forEach((inp, i) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>inp.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>inp.onfocus=()=&gt;{focusId = i;};</p>
+<p class="p1"><span class="Apple-converted-space">    </span>inp.oninput = e =&gt; handleType(e,i);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>});</p>
+<p class="p1"><span class="Apple-converted-space">  </span>allBoxes[0].focus();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function insertNum(num) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (focusId !== null) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let box = document.getElementById(`in${focusId}`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box.value += num;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>inputs[focusId] = box.value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box.focus();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p1">function deleteNum() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if (focusId !== null) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let box = document.getElementById(`in${focusId}`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box.value = box.value.slice(0, -1);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>inputs[focusId] = box.value;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>box.focus();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p1">function handleType(e,i) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>inputs[i] = e.target.value.replace(/[^0-9]/g,'');</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function submitAns() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const q = questions[index], [A,B] = [q.multA, q.multB], [S1, S2] = q.split;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const correctAnswers = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>S1, S2,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>A, S1,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>A, S2,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>A*S1, A*S2,</p>
+<p class="p1"><span class="Apple-converted-space">    </span>A*S1 + A*S2</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>let ok = true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(let i=0; i&lt;9; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>if(!inputs[i] || inputs[i] === "" || inputs[i] != correctAnswers[i]) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>ok = false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>break;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(ok &amp;&amp; !firstTryCorrect[index]) firstTryCorrect[index] = true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(ok) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>showSolution(true);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>encourageRetry();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function encourageRetry() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cheers = [</p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Almost there! Give it another go! 🌈",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>"Oops! Check your math magic and try again! 🪄",</p>
+<p class="p1"><span class="Apple-converted-space">    </span>"You can do it! Think about each step. 💡"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const cheer = cheers[Math.floor(Math.random()*cheers.length)];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="feedback" style="color:#f2395a;"&gt;${cheer}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="action-btn" onclick="tryAgain()"&gt;Try Again&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="action-btn secondary" onclick="showSolution(false)"&gt;See Solution&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').style.display='block';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function tryAgain() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').style.display='block';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function showSolution(correct) {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(!correct) solutionViewedTracker[index]=true;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const q=questions[index], [A,B]=[q.multA,q.multB], [S1,S2]=q.split;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const products=[A*S1, A*S2], total=products[0]+products[1];</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const markup=`</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="quizimg"&gt;${q.img}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Great Job!&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="story-row" style="color:#178a66;"&gt;${q.story}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;table class="solution-table" aria-label="Solution steps"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;${A} × ${B}&lt;/td&gt;&lt;td&gt;= ${A} × ( ${S1} + ${S2} )&lt;/td&gt;&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;= ${A} × ${S1} + ${A} × ${S2}&lt;/td&gt;&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;= ${products[0]} + ${products[1]}&lt;/td&gt;&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;= &lt;b style="color:#e6502c; font-size:1.12em;"&gt;${total}&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/table&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="feedback" style="color:#45ad35; font-weight:bold;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>${correct ? '🎈 Hooray! You solved it!' : 'Keep going, you will get better every time!'}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="action-btn" onclick="${index &lt; questions.length-1 ? 'nextQ()' : 'showResults()'}"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>${index &lt; questions.length-1 ? 'Next Question ➡️' : 'Finish Quiz 🏁'}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('solution-container').innerHTML=markup;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('solution-container').style.display='block';</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function nextQ() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>index++;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(index &gt;= questions.length) {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>showResults();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderQuestion();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>}</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function showResults() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('quiz-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('retry-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('solution-container').style.display='none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('result-container').style.display='block';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('progressHolder').innerText = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const total = questions.length;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const correctCount = firstTryCorrect.reduce((acc, v) =&gt; acc + (v ? 1 : 0), 0);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const viewedCount = solutionViewedTracker.reduce((acc, v) =&gt; acc + (v ? 1 : 0), 0);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let stars = 5;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(correctCount &lt; total) stars--;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>stars -= viewedCount;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>if(stars &lt; 1) stars = 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>let starMarkup = '';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(let i=0;i&lt;stars;i++) starMarkup += '⭐';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>for(let i=stars;i&lt;5;i++) starMarkup += '☆';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const markup = `</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2&gt;Quiz Results&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div style="font-size: 18px; margin-top: 20px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>You answered &lt;b&gt;${correctCount} out of ${total}&lt;/b&gt; questions correctly on your first attempt.&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>You viewed the solution &lt;b&gt;${viewedCount} time${viewedCount !== 1 ? 's' : ''}&lt;/b&gt;.&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>Your star rating:&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="stars"&gt;${starMarkup}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button class="action-btn" onclick="restartQuiz()"&gt;Restart Quiz 🔄&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('result-container').innerHTML = markup;</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">function restartQuiz() {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>index = 0;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>firstTryCorrect.fill(false);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>solutionViewedTracker.fill(false);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('result-container').style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">  </span>document.getElementById('progressHolder').innerText = `Question 1 of ${questions.length}`;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>renderQuestion();</p>
+<p class="p1">}</p>
+<p class="p2"><br></p>
+<p class="p1">renderQuestion();</p>
+<p class="p1">&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
